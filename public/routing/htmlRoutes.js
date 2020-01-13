@@ -14,9 +14,5 @@ routes.get("/contact", async (req, res) => {
 routes.get("/portfolio", async (req, res) => {
     res.render("portfolio", {});
   });
-// Render 404 page for any unmatched routes
-routes.get("*", async (req, res) => {
-  res.render("404");
-});
 
 module.exports = routes;
