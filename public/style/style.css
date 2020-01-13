@@ -1,0 +1,56 @@
+.index-body {
+    background-image: url("../images/light-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}​,
+
+.img-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: black solid 2px;
+}
+
+.box-links {
+    color: lightgray;
+}
+.contact-body {
+    background-image: url("../images/splash-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}​,
+.myCard {
+    width: 900px;
+    background: lightgray;
+}
+.form-control {
+    background: rgb(240, 237, 237);
+}
+.navbar-brand, .card-title, h2 {
+    font-family: 'Lobster', cursive;
+}
+p, a {
+    font-family: 'Barlow Condensed', sans-serif; 
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    color: lightgray;
+    padding: 20px;
+}
+.footer-links {
+    color: lightgray;
+}
+.myButton {
+    color: lightgray;
+}
+.myLink {
+    color: lightgray;
+}
+.portfolio-body {
+    background-image: url("../images/specs-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
