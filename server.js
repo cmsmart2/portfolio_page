@@ -5,6 +5,9 @@ const path = require("path");
 const app = express();
 const bodyParser = require('body-parser');
 const nodemailer = require("nodemailer");
+const xoauth2 = require('xoauth2')
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 
 app.use(express.static(path.join(__dirname, '/public')))
@@ -25,6 +28,21 @@ app.use(routes);
 
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
+const ID = process.env.ID;
+const Secret = process.env.Secret;
+const RefreshToken = process.env.RefreshToken;
+
+const oauth2Client = new OAuth2(
+  ID,
+  Secret,
+  "https://developers.google.com/oauthplayground" 
+);
+
+oauth2Client.setCredentials({
+  refresh_token: RefreshToken
+});
+
+const accessToken = oauth2Client.getAccessToken()
 
 app.post('/send', (req, res) =>{
   const output = `
@@ -38,27 +56,26 @@ app.post('/send', (req, res) =>{
     <p>${req.body.message}</p>
   `;
 
-// create reusable transporter object using the default SMTP transport
+
 let smtpTrans = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true, 
+  service: 'gmail',
   auth: {
       type: 'OAuth2',
       user: GMAIL_USER,
-      pass: GMAIL_PASS 
-  },
-  // tls:{
-  //   rejectUnauthorized:false
-  // }
-});
+      clientId: ID,
+      clientSecret: Secret,
+      refreshToken: RefreshToken, 
+      accessToken: accessToken
+      }
+       
+  });
 
 // setup email data with unicode symbols
 let mailOpts = {
     from: "Nodemailer Contact",
     to: GMAIL_USER, 
     subject: 'Portfolio Form', 
-    text: 'Hello world?', 
+    generateTextFromHTML: true, 
     html: output 
 };
 
