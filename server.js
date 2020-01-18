@@ -27,22 +27,21 @@ app.set("view engine", "handlebars");
 app.use(routes);
 
 const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_PASS = process.env.GMAIL_PASS;
 const ID = process.env.ID;
 const Secret = process.env.Secret;
 const RefreshToken = process.env.RefreshToken;
 
-const oauth2Client = new OAuth2(
-  ID,
-  Secret,
-  "https://developers.google.com/oauthplayground" 
-);
+// const oauth2Client = new OAuth2(
+//   ID,
+//   Secret,
+//   "https://developers.google.com/oauthplayground" 
+// );
 
-oauth2Client.setCredentials({
-  refresh_token: RefreshToken
-});
+// oauth2Client.setCredentials({
+//   refresh_token: RefreshToken
+// });
 
-const accessToken = oauth2Client.getAccessToken()
+// const accessToken = oauth2Client.getAccessToken()
 
 app.post('/send', (req, res) =>{
   const output = `
@@ -57,22 +56,25 @@ app.post('/send', (req, res) =>{
   `;
 
 
-let smtpTrans = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-      type: 'OAuth2',
-      user: GMAIL_USER,
-      clientId: ID,
-      clientSecret: Secret,
-      refreshToken: RefreshToken, 
-      accessToken: accessToken
-      }
+// let smtpTrans = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//       type: 'OAuth2',
+//       user: GMAIL_USER,
+//       clientId: ID,
+//       clientSecret: Secret,
+//       refreshToken: RefreshToken, 
+//       accessToken: accessToken
+//       }
        
-  });
+//   });
+let smtpTrans = nodemailer.createTransport({
+  jsonTransport: true 
+})
 
 // setup email data with unicode symbols
 let mailOpts = {
-    from: "Nodemailer Contact",
+    from: GMAIL_USER,
     to: GMAIL_USER, 
     subject: 'Portfolio Form', 
     generateTextFromHTML: true, 

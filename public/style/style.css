@@ -1,8 +1,9 @@
 .index-body {
-    background-image: url("../images/light-background.jpg");
+    background: url("../images/light-background-small.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
 }​,
 
 .img-card {
@@ -14,10 +15,11 @@
     color: lightgray;
 }
 .contact-body {
-    background-image: url("../images/splash-background.jpg");
+    background: url("../images/splash-background-small.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
 }​,
 .myCard {
     width: 900px;
@@ -49,8 +51,9 @@ footer {
     color: lightgray;
 }
 .portfolio-body {
-    background-image: url("../images/specs-background.jpg");
+    background: url("../images/specs-background-small.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
 }
