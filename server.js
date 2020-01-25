@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 const nodemailer = require("nodemailer");
 const xoauth2 = require('xoauth2')
 const { google } = require("googleapis");
+const dotenv = require("dotenv").config();
 const OAuth2 = google.auth.OAuth2;
+const mg = require("nodemailer-mailgun-transport")
 
 
 app.use(express.static(path.join(__dirname, '/public')))
@@ -26,10 +28,9 @@ app.set("view engine", "handlebars");
 
 app.use(routes);
 
-const GMAIL_USER = process.env.GMAIL_USER;
-const ID = process.env.ID;
-const Secret = process.env.Secret;
-const RefreshToken = process.env.RefreshToken;
+const MG_USER = process.env.MG_USER;
+const MG_API = process.env.MG_API;
+const EMAIL = process.env.EMAIL;
 
 // const oauth2Client = new OAuth2(
 //   ID,
@@ -68,14 +69,19 @@ app.post('/send', (req, res) =>{
 //       }
        
 //   });
-let smtpTrans = nodemailer.createTransport({
-  jsonTransport: true 
-})
+const mgAuth = {
+  auth: {
+    api_key: MG_API,
+    domain: "mail.smartmichalski.com"
+  }
+}
+
+let smtpTrans = nodemailer.createTransport(mg(mgAuth))
 
 // setup email data with unicode symbols
 let mailOpts = {
-    from: GMAIL_USER,
-    to: GMAIL_USER, 
+    from: MG_USER,
+    to: EMAIL, 
     subject: 'Portfolio Form', 
     generateTextFromHTML: true, 
     html: output 
@@ -86,6 +92,7 @@ smtpTrans.sendMail(mailOpts, (error, info) => {
     if (error) {
         return console.log(error);
     }
+    console.log(mailOpts);
     console.log('Message sent: %s', info.messageId);   
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
