@@ -2,7 +2,7 @@
 
 http://www.smartmichalski.com/
 
-My portfolio of web and media work with links and resume
+My portfolio of web work with links and resume.
 
 In this assignment, I created a digital portfolio of my web development work.
 
